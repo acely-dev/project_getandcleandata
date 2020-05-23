@@ -3,7 +3,7 @@
 ## Tidy Dataset from UCI HAR
 This new dataset containt:
 * 180 observation
-* 4 variables
+* 81 variables
 
 ### subject variable
 - description: Anonymized identifier of the measurement user
@@ -19,7 +19,7 @@ This new dataset containt:
 - description: sensor measure values
 - type numerics
 - variables
-[3] "tBodyAcc.mean...X"               "tBodyAcc.mean...Y"              
+ [3] "tBodyAcc.mean...X"               "tBodyAcc.mean...Y"              
  [5] "tBodyAcc.mean...Z"               "tBodyAcc.std...X"               
  [7] "tBodyAcc.std...Y"                "tBodyAcc.std...Z"               
  [9] "tGravityAcc.mean...X"            "tGravityAcc.mean...Y"           
