@@ -1,10 +1,6 @@
 #libraries
 library(dplyr)
 
-#define function to get mean and SD
-get_measurement <- function(arr, my_function){
-    c(my_function(arr, na.rm = TRUE))
-}
 
 #define function to set label
 set_label_factor <- function(label){
@@ -29,31 +25,36 @@ subject<- rbind(train_subject, test_subject)
 measurements<- rbind(train_x, test_x)
 activities<- rbind(train_y, test_y)
 
+#set names
+names(subject) <- c("subject")
+names(activities) <- c("activity")
+
 ## Step two
 ## Extracts only the measurements on the mean and standard deviation for each measurement.
-#calculate average and standar deviation from measurements
-dataset<-subject
-dataset["mean"]<-apply(measurements, 1, get_measurement, mean)
-dataset["sd"]<-apply(measurements, 1, get_measurement, sd)
+#get features names and set in dataframe
+features_names <-read.table("data/features.txt")
+names(measurements) <-features_names$V2
+
+#select only variables with mean and sd information
+measurements_subset <- measurements[,grep("(std|mean)",colnames(measurements))]
 
 ## Step three
 ## Uses descriptive activity names to name the activities in the data set
 ##call set_label_factor function
-dataset["activity"]<-apply(activities, 1, set_label_factor)
+activity<-apply(activities, 1, set_label_factor)
 
-## Step four
+## Step fours
 ## Appropriately labels the data set with descriptive variable names.
 #rename labels
-names(dataset) <- c("subject","mean_activity","sd_activity","activity")
+names(measurements_subset) <-gsub("\\)|\\(|-",".",colnames(measurements_subset))
 
 ## Step five
 ## From the data set in step 4, creates a second, independent tidy data set with the average of 
 ## each variable for each activity and each subject.
-
-activity_group<- group_by(dataset, subject, activity)
-tidy_dataset<-summarise(activity_group, mean_activity=mean(mean_activity, na.rm = TRUE), 
-                        sd_activity= sd(sd_activity,na.rm= TRUE))
+full_dataset<-cbind(subject,activity,measurements_subset)
+activity_group<- group_by(full_dataset, subject, activity)
+tidy_dataset<-summarise_all(activity_group, mean, na.rm = TRUE)
 
 #save dataset to file
-write.table(tidy_dataset,file="tidy_dataset.csv", row.name=FALSE)
+write.table(tidy_dataset,file="tidy_dataset.txt", row.name=FALSE)
 
