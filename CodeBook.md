@@ -15,11 +15,11 @@ This new dataset containt:
 - type: Factor
 - range: [1:"WALKING", 2:"WALKING_UPSTAIRS", 3:"WALKING_DOWNSTAIRS", 4:"SITTING", 5:"STANDING",6:"LAYING"]
 
-### Samnugs measurest variables
+### Dataset measurest variables
 - description: sensor measure values
 - type numerics
 - variables
-3] "tBodyAcc.mean...X"               "tBodyAcc.mean...Y"              
+[3] "tBodyAcc.mean...X"               "tBodyAcc.mean...Y"              
  [5] "tBodyAcc.mean...Z"               "tBodyAcc.std...X"               
  [7] "tBodyAcc.std...Y"                "tBodyAcc.std...Z"               
  [9] "tGravityAcc.mean...X"            "tGravityAcc.mean...Y"           
